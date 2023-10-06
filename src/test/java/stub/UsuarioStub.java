@@ -8,7 +8,8 @@ public class UsuarioStub {
         Usuario joao = new Usuario(
                 "João",
                 "joao@email.com",
-                "Senha123@");
+                "Senha123@",
+                "true");
 
         return joao;
     }
@@ -16,7 +17,8 @@ public class UsuarioStub {
         Usuario joana = new Usuario(
                 "Joana",
                 "joana@email.com",
-                "SenhaDaJoana123@");
+                "SenhaDaJoana123@",
+                "true");
 
         return joana;
     }
@@ -24,7 +26,8 @@ public class UsuarioStub {
         Usuario maria = new Usuario(
                 "Maria",
                 "maria@email.com",
-                "SenhaDaMaria123@");
+                "SenhaDaMaria123@",
+                "true");
 
         return maria;
     }
