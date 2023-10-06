@@ -21,8 +21,4 @@ public class Usuario {
     public String getSenha() {
         return password;
     }
-
-    public String getAdministrador(){
-        return administrador;
-    }
 }

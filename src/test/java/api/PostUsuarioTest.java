@@ -12,7 +12,6 @@ import stub.UsuarioStub;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PostUsuarioTest {
@@ -24,23 +23,30 @@ public class PostUsuarioTest {
         usuarioStub = new UsuarioStub();
     }
     @Test
-    @DisplayName("Deve criar um novo usuário")
-    void testCadastrarNovoUsuario() {
-        Usuario novoUsuario = usuarioStub.postUsuario();
-
-        Response response = given()
-                .baseUri(BASE_URL)
+    @DisplayName("Deve criar um novo usuário.")
+    void testeCriandoUsuario() {
+        Usuario usuario = usuarioStub.postUsuario();
+        Response resposta =
+        given()
                 .contentType(ContentType.JSON)
-                .body(novoUsuario)
-                .when()
+                .body(usuario)
+        .when()
                 .post("/usuarios");
 
-        assertEquals(201, response.getStatusCode());
+        assertEquals(201, resposta.getStatusCode());
+        usuarioStub.setIdUsuario(resposta.jsonPath().getString("_id"));
+    }
+    @Test
+    @DisplayName("Deve retornar erro caso um usuário possua um e-mail repetido.")
+    void testeCriandoUsuarioComEmailRepetido() {
+        Usuario usuario = usuarioStub.getUsuario();
+        Response resposta =
+        given()
+                .contentType(ContentType.JSON)
+                .body(usuario)
+        .when()
+                .post("/usuarios");
 
-        String responseBody = response.getBody().asString();
-        assertTrue(responseBody.contains("Cadastro realizado com sucesso"));
-
-        usuarioStub.setIdUsuario(response.jsonPath().getString("_id"));
-        System.out.println(usuarioStub.getIdUsuario());
+        assertEquals(400, resposta.getStatusCode());
     }
 }

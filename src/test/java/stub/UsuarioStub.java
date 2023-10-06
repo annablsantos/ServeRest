@@ -2,12 +2,20 @@ package stub;
 
 import org.example.model.Usuario;
 
+import java.util.UUID;
+
 public class UsuarioStub {
     private String idUsuario;
+    String gerarEmail = gerarEmailUnico();
+
+    private String gerarEmailUnico(){
+        UUID uuid = UUID.randomUUID();
+        return "annab608_" + uuid + "@email.com";
+    }
     public Usuario postUsuario(){
         Usuario joao = new Usuario(
                 "João",
-                "joao@email.com",
+                gerarEmail,
                 "Senha123@",
                 "true");
 
@@ -16,7 +24,7 @@ public class UsuarioStub {
     public Usuario putUsuario(){
         Usuario joana = new Usuario(
                 "Joana",
-                "joana@email.com",
+                gerarEmail,
                 "SenhaDaJoana123@",
                 "true");
 

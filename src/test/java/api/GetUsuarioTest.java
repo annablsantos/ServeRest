@@ -23,8 +23,8 @@ public class GetUsuarioTest {
         usuarioStub = new UsuarioStub();
     }
     @Test
-    @DisplayName("Deve verificar se o get dos usuários busca-os corretamente")
-    void testeBuscandoOsUsuarios() {
+    @DisplayName("Deve verificar se o get dos usuários busca-os corretamente.")
+    void testeBuscandoUsuarios() {
         Response resposta =
                 given()
                 .when()
@@ -33,31 +33,32 @@ public class GetUsuarioTest {
         assertEquals(200, resposta.getStatusCode());
         String nomeDoUsuario = resposta.jsonPath().getString("usuarios[0].nome");
         String emailDoUsuario = resposta.jsonPath().getString("usuarios[0].email");
+        boolean administrador = resposta.jsonPath().getBoolean("usuarios[0].administrador");
         String senhaDoUsuario = resposta.jsonPath().getString("usuarios[0].password");
 
         assertFalse(nomeDoUsuario.isEmpty());
         assertFalse(emailDoUsuario.isEmpty());
+        assertTrue(administrador);
         assertFalse(senhaDoUsuario.isEmpty());
     }
     @Test
-    @DisplayName("Deve validar um e-mail")
+    @DisplayName("Deve validar um e-mail.")
     void testeValidandoEmail(){
         String emailTeste = "annab@email.com";
         String regex = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
 
         assertTrue(emailTeste.matches(regex));
     }
-
     @Test
-    @DisplayName("Deve buscar um usuário pelo ID")
-    void testeBuscarUsuarioPorId() {
-        Usuario usuario2 = usuarioStub.postUsuario();
+    @DisplayName("Deve buscar um usuário pelo ID.")
+    void testeBuscandoUsuarioPeloId() {
+        Usuario usuario = usuarioStub.postUsuario();
 
         Response respostaGet =
                 given()
                         .baseUri(BASE_URL)
                         .contentType(ContentType.JSON)
-                        .body(usuario2)
+                        .body(usuario)
                 .when()
                         .post("/usuarios");
 
@@ -70,16 +71,18 @@ public class GetUsuarioTest {
 
         assertEquals(200, resposta.getStatusCode());
 
+        String nome = resposta.jsonPath().getString("nome");
         String email = resposta.jsonPath().getString("email");
         String senha = resposta.jsonPath().getString("password");
         String id = resposta.jsonPath().getString("_id");
 
-        assertEquals(usuario2.getEmail(), email);
-        assertEquals(usuario2.getSenha(), senha);
+        assertEquals(usuario.getNome(), nome);
+        assertEquals(usuario.getEmail(), email);
+        assertEquals(usuario.getSenha(), senha);
         assertEquals(idUsuario, id);
     }
     @Test
-    @DisplayName("Deve dar erro caso o ID do usuário seja inválido")
+    @DisplayName("Deve retornar um erro caso o ID do usuário seja inválido.")
     void testeVerificandoIDInvalido() {
         Response resposta =
                 given()
