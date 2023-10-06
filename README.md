@@ -5,16 +5,7 @@ Este é um projeto com o objetivo de realizar testes automatizados para a API do
 - Java Development Kit (JDK 11 ou superior)
 - Gradle instalado
 - RestAssured (4.5.1)
-- SpringBoot
-
-### Requisitos:
-
-- Java 11 ou superior
-- Spring Boot 2.7.15
-- Selenium 4.1.0
-- WebDriverManager 5.2.1
-- JUnit Jupiter 5.8.1
-- RestAssured 4.5.1
+- SpringBoot (2.7.15)
 
 ### Como executar:
 - Clone esse repositório localmente;
