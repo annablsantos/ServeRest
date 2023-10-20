@@ -7,23 +7,23 @@ import org.example.dto.Usuario;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import stub.UsuarioStub;
+import provider.UsuarioProvider;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PostUsuarioTest {
     private static final String BASE_URL = "https://serverest.dev";
-    private static UsuarioStub usuarioStub;
+    private static UsuarioProvider usuarioProvider;
     @BeforeAll
     static void setup() {
         RestAssured.baseURI = BASE_URL;
-        usuarioStub = new UsuarioStub();
+        usuarioProvider = new UsuarioProvider();
     }
     @Test
     @DisplayName("Deve criar um novo usuário.")
     void testeCriandoUsuario() {
-        Usuario usuario = usuarioStub.postUsuario();
+        Usuario usuario = usuarioProvider.postUsuario();
         Response resposta =
         given()
                 .contentType(ContentType.JSON)
@@ -32,12 +32,12 @@ public class PostUsuarioTest {
                 .post("/usuarios");
 
         assertEquals(201, resposta.getStatusCode());
-        usuarioStub.setIdUsuario(resposta.jsonPath().getString("_id"));
+        usuarioProvider.setIdUsuario(resposta.jsonPath().getString("_id"));
     }
     @Test
     @DisplayName("Deve retornar erro caso um usuário possua um e-mail repetido.")
     void testeCriandoUsuarioComEmailRepetido() {
-        Usuario usuario = usuarioStub.getUsuario();
+        Usuario usuario = usuarioProvider.getUsuario();
         Response resposta =
         given()
                 .contentType(ContentType.JSON)

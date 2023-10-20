@@ -3,7 +3,7 @@ package api;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.example.dto.Usuario;
-import stub.UsuarioStub;
+import provider.UsuarioProvider;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GetUsuarioTest {
     private static final String BASE_URL = "https://serverest.dev";
-    private static UsuarioStub usuarioStub;
+    private static UsuarioProvider usuarioProvider;
     @BeforeAll
     static void setup() {
         RestAssured.baseURI = BASE_URL;
-        usuarioStub = new UsuarioStub();
+        usuarioProvider = new UsuarioProvider();
     }
     @Test
     @DisplayName("Deve verificar se o get dos usuários busca-os corretamente.")
@@ -42,7 +42,7 @@ public class GetUsuarioTest {
     @Test
     @DisplayName("Deve buscar um usuário pelo ID.")
     void testeBuscandoUsuarioPeloId() {
-        Usuario usuario = usuarioStub.postUsuario();
+        Usuario usuario = usuarioProvider.postUsuario();
 
         Response respostaGet =
                 given()

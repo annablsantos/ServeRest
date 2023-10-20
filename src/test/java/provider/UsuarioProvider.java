@@ -1,10 +1,14 @@
-package stub;
+package provider;
 
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.example.dto.Usuario;
 
 import java.util.UUID;
 
-public class UsuarioStub {
+import static io.restassured.RestAssured.given;
+
+public class UsuarioProvider {
     private String idUsuario;
     String gerarEmail = gerarEmailUnico();
 
@@ -39,6 +43,15 @@ public class UsuarioStub {
                 "true");
 
         return maria;
+    }
+
+    public static Response criarUsuario(Usuario usuario) {
+        return
+           given()
+                .contentType(ContentType.JSON)
+                .body(usuario)
+           .when()
+                .post("/usuarios");
     }
     public String setIdUsuario(String idUsuario){
         return this.idUsuario = idUsuario;

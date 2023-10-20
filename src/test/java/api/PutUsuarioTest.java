@@ -7,24 +7,24 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import io.restassured.RestAssured;
-import stub.UsuarioStub;
+import provider.UsuarioProvider;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PutUsuarioTest {
     private static final String BASE_URL = "https://serverest.dev";
-    private static UsuarioStub usuarioStub;
+    private static UsuarioProvider usuarioProvider;
 
     @BeforeAll
     static void setup() {
         RestAssured.baseURI = BASE_URL;
-        usuarioStub = new UsuarioStub();
+        usuarioProvider = new UsuarioProvider();
     }
     @Test
     @DisplayName("Deve verificar se um usuário pode ser alterado.")
     void testeAlterandoUsuario(){
-        Usuario usuario = usuarioStub.postUsuario();
+        Usuario usuario = usuarioProvider.postUsuario();
         Response respostaPost =
         given()
                 .baseUri(BASE_URL)
@@ -34,7 +34,7 @@ public class PutUsuarioTest {
                 .post("/usuarios");
 
         String idDoUsuario = respostaPost.jsonPath().getString("_id");
-        Usuario usuarioAlterado = usuarioStub.putUsuario();
+        Usuario usuarioAlterado = usuarioProvider.putUsuario();
 
         Response resposta =
         given()

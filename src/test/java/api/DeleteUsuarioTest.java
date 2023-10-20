@@ -7,7 +7,7 @@ import org.example.dto.Usuario;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import stub.UsuarioStub;
+import provider.UsuarioProvider;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,32 +15,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DeleteUsuarioTest {
     private static final String BASE_URL = "https://serverest.dev";
-    private static UsuarioStub usuarioStub;
+    private static UsuarioProvider usuarioProvider;
 
     @BeforeAll
     static void setup() {
         RestAssured.baseURI = BASE_URL;
-        usuarioStub = new UsuarioStub();
+        usuarioProvider = new UsuarioProvider();
     }
 
     @Test
     @DisplayName("Deve deletar um usuário.")
     void testeDeletandoUsuario() {
-        Usuario usuario = usuarioStub.postUsuario();
-        Response respostaPost =
-        given()
-                .contentType(ContentType.JSON)
-                .body(usuario)
-        .when()
-                .post("/usuarios");
+        Usuario usuario = usuarioProvider.postUsuario();
+        Response respostaPost = usuarioProvider.criarUsuario(usuario);
 
         assertEquals(201, respostaPost.getStatusCode());
         String idUsuario = respostaPost.jsonPath().getString("_id");
 
-        Response delete =
-                given()
-                .when()
-                .delete("/usuarios/" + idUsuario);
+        Response delete = given().when().delete("/usuarios/" + idUsuario);
 
         assertEquals(200, delete.getStatusCode());
         assertTrue(delete.getBody().asString().contains("Registro excluído com sucesso"));
@@ -49,7 +41,7 @@ public class DeleteUsuarioTest {
     @Test
     @DisplayName("Deve tentar deletar um usuário inexistente")
     void testeDeletandoUsuarioInexistente() {
-        String idUsuario = usuarioStub.getIdUsuario();
+        String idUsuario = usuarioProvider.getIdUsuario();
         Response resposta =
                 given()
                 .when()
