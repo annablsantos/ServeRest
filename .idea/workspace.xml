@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8d162fc-c513-4b3a-8e1e-678c8d308e3d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ServeRest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/DeleteUsuarioTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/DeleteUsuarioTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/GetUsuarioTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/GetUsuarioTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/PostUsuarioTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/PostUsuarioTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/api/PutUsuarioTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/api/PutUsuarioTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/stub/UsuarioStub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/stub/UsuarioStub.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

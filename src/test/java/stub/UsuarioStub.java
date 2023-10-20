@@ -8,6 +8,7 @@ public class UsuarioStub {
     private String idUsuario;
     String gerarEmail = gerarEmailUnico();
 
+    @org.jetbrains.annotations.NotNull
     private String gerarEmailUnico(){
         UUID uuid = UUID.randomUUID();
         return "annab608_" + uuid + "@email.com";

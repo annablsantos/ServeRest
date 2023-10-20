@@ -5,7 +5,6 @@ import io.restassured.http.ContentType;
 import org.example.dto.Usuario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.BeforeAll;
 import io.restassured.RestAssured;
 import stub.UsuarioStub;
@@ -13,17 +12,15 @@ import stub.UsuarioStub;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PutUsuarioTest {
     private static final String BASE_URL = "https://serverest.dev";
-    private UsuarioStub usuarioStub;
+    private static UsuarioStub usuarioStub;
 
     @BeforeAll
-    void setup() {
+    static void setup() {
         RestAssured.baseURI = BASE_URL;
         usuarioStub = new UsuarioStub();
     }
-
     @Test
     @DisplayName("Deve verificar se um usuário pode ser alterado.")
     void testeAlterandoUsuario(){

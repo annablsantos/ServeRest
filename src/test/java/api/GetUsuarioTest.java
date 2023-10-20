@@ -3,7 +3,6 @@ package api;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.example.dto.Usuario;
-import org.junit.jupiter.api.TestInstance;
 import stub.UsuarioStub;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
@@ -13,12 +12,11 @@ import org.junit.jupiter.api.DisplayName;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GetUsuarioTest {
     private static final String BASE_URL = "https://serverest.dev";
-    private UsuarioStub usuarioStub;
+    private static UsuarioStub usuarioStub;
     @BeforeAll
-    void setup() {
+    static void setup() {
         RestAssured.baseURI = BASE_URL;
         usuarioStub = new UsuarioStub();
     }
@@ -40,14 +38,6 @@ public class GetUsuarioTest {
         assertFalse(emailDoUsuario.isEmpty());
         assertTrue(administrador);
         assertFalse(senhaDoUsuario.isEmpty());
-    }
-    @Test
-    @DisplayName("Deve validar um e-mail.")
-    void testeValidandoEmail(){
-        String emailTeste = "annab@email.com";
-        String regex = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}";
-
-        assertTrue(emailTeste.matches(regex));
     }
     @Test
     @DisplayName("Deve buscar um usuário pelo ID.")
