@@ -12,7 +12,6 @@ import provider.UsuarioProvider;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PutUsuarioTest {
     private static final String BASE_URL = "https://serverest.dev";
