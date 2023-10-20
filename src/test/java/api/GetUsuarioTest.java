@@ -21,7 +21,7 @@ public class GetUsuarioTest {
         usuarioProvider = new UsuarioProvider();
     }
     @Test
-    @DisplayName("Deve verificar se o get dos usuários busca-os corretamente.")
+    @DisplayName("Deve listar os usuários com sucesso.")
     void testeBuscandoUsuariosComSucesso() {
         given()
                 .contentType(ContentType.JSON)
