@@ -23,7 +23,7 @@ public class DeleteUsuarioTest {
     }
 
     @Test
-    @DisplayName("Deve deletar um usuário.")
+    @DisplayName("Deve deletar um usuário som sucesso.")
     void testeDeletandoUsuarioComSucesso() {
         Usuario usuario = usuarioProvider.postUsuario();
         Response respostaPost = usuarioProvider.criarUsuario(usuario);

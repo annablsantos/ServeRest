@@ -22,6 +22,9 @@ public class Usuario {
     public String getSenha() {
         return password;
     }
+    public String setEmail(String email){
+        return this.email = email;
+    }
     public String setIdUsuario(String idUsuario){
         return this.idUsuario = idUsuario;
     }

@@ -56,7 +56,7 @@ public class GetUsuarioTest {
     }
 
     @Test
-    @DisplayName("Deve retornar um erro caso o ID do usuário não exista")
+    @DisplayName("Deve retornar um erro caso o ID do usuário não exista.")
     void testeVerificandoIdInexistente() {
         given()
                 .contentType(ContentType.JSON)

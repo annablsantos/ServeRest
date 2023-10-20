@@ -10,6 +10,7 @@ import provider.UsuarioProvider;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.emptyOrNullString;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.IsNot.not;
 
 public class PostUsuarioTest {
@@ -44,5 +45,20 @@ public class PostUsuarioTest {
                 .post("/usuarios")
         .then()
                 .statusCode(400);
+    }
+    @Test
+    @DisplayName("Deve retornar um erro 400 se o usuário não tiver um email.")
+    void testeVerificandoUsuarioSemEmail() {
+        Usuario usuarioSemEmail = usuarioProvider.postUsuario();
+        usuarioSemEmail.setEmail(null);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body(usuarioSemEmail)
+        .when()
+                .post("/usuarios")
+        .then()
+                .statusCode(400)
+                .body("email", equalTo("email é obrigatório"));
     }
 }
