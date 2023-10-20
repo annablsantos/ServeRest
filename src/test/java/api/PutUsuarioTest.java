@@ -2,7 +2,7 @@ package api;
 
 import io.restassured.response.Response;
 import io.restassured.http.ContentType;
-import org.example.model.Usuario;
+import org.example.dto.Usuario;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

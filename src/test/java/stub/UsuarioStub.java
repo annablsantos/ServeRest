@@ -1,6 +1,6 @@
 package stub;
 
-import org.example.model.Usuario;
+import org.example.dto.Usuario;
 
 import java.util.UUID;
 
