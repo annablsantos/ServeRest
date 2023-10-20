@@ -72,12 +72,12 @@ public class GetUsuarioTest {
         assertEquals(idUsuario, id);
     }
     @Test
-    @DisplayName("Deve retornar um erro caso o ID do usuário seja inválido.")
-    void testeVerificandoIDInvalido() {
+    @DisplayName("Deve retornar um erro caso o ID do usuário não exista")
+    void testeBuscandoIdInexistente() {
         Response resposta =
                 given()
                 .when()
-                .get("usuarios/idquenaoexiste");
+                .get("usuarios/22222222222222222222222222222222222222");
 
         assertEquals(400, resposta.getStatusCode());
     }

@@ -23,35 +23,28 @@ public class PutUsuarioTest {
     }
     @Test
     @DisplayName("Deve verificar se um usuário pode ser alterado.")
-    void testeAlterandoUsuario(){
+    void testeAlterandoUsuario() {
         Usuario usuario = usuarioProvider.postUsuario();
-        Response respostaPost =
-        given()
-                .baseUri(BASE_URL)
-                .contentType(ContentType.JSON)
-                .body(usuario)
-        .when()
-                .post("/usuarios");
+        Response respostaPost = usuarioProvider.criarUsuario(usuario);
 
         String idDoUsuario = respostaPost.jsonPath().getString("_id");
+
         Usuario usuarioAlterado = usuarioProvider.putUsuario();
 
-        Response resposta =
-        given()
+        Response respostaPut = given()
                 .baseUri(BASE_URL)
                 .contentType(ContentType.JSON)
                 .body(usuarioAlterado)
-        .when()
+                .when()
                 .put("/usuarios/" + idDoUsuario);
 
-        assertEquals(200, resposta.getStatusCode());
-        assertTrue(resposta.getBody().asString().contains("Registro alterado com sucesso"));
+        assertEquals(200, respostaPut.getStatusCode());
+        assertTrue(respostaPut.getBody().asString().contains("Registro alterado com sucesso"));
 
-        Response respostaGet =
-        given()
+        Response respostaGet = given()
                 .baseUri(BASE_URL)
                 .contentType(ContentType.JSON)
-        .when()
+                .when()
                 .get("/usuarios/" + idDoUsuario);
 
         assertEquals(200, respostaGet.getStatusCode());
