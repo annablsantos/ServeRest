@@ -10,6 +10,8 @@ import io.restassured.RestAssured;
 import provider.UsuarioProvider;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PutUsuarioTest {
@@ -22,7 +24,7 @@ public class PutUsuarioTest {
         usuarioProvider = new UsuarioProvider();
     }
     @Test
-    @DisplayName("Deve verificar se um usuário pode ser alterado.")
+    @DisplayName("Deve alterar um usuário com sucesso.")
     void testeAlterandoUsuario() {
         Usuario usuario = usuarioProvider.postUsuario();
         Response respostaPost = usuarioProvider.criarUsuario(usuario);
@@ -31,25 +33,26 @@ public class PutUsuarioTest {
 
         Usuario usuarioAlterado = usuarioProvider.putUsuario();
 
-        Response respostaPut = given()
-                .baseUri(BASE_URL)
+        given()
                 .contentType(ContentType.JSON)
                 .body(usuarioAlterado)
-                .when()
-                .put("/usuarios/" + idDoUsuario);
+        .when()
+                .put("/usuarios/" + idDoUsuario)
+        .then()
+                .statusCode(200)
+                .body(containsString("Registro alterado com sucesso"));
 
-        assertEquals(200, respostaPut.getStatusCode());
-        assertTrue(respostaPut.getBody().asString().contains("Registro alterado com sucesso"));
-
-        Response respostaGet = given()
-                .baseUri(BASE_URL)
+        Response respostaGet =
+        given()
                 .contentType(ContentType.JSON)
-                .when()
+        .when()
                 .get("/usuarios/" + idDoUsuario);
 
-        assertEquals(200, respostaGet.getStatusCode());
-        assertEquals(usuarioAlterado.getNome(), respostaGet.jsonPath().getString("nome"));
-        assertEquals(usuarioAlterado.getEmail(), respostaGet.jsonPath().getString("email"));
-        assertEquals(usuarioAlterado.getSenha(), respostaGet.jsonPath().getString("password"));
+        respostaGet
+                .then()
+                .statusCode(200)
+                .body("nome", equalTo(usuarioAlterado.getNome()))
+                .body("email", equalTo(usuarioAlterado.getEmail()))
+                .body("password", equalTo(usuarioAlterado.getSenha()));
     }
 }

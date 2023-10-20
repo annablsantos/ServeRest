@@ -9,7 +9,6 @@ import java.util.UUID;
 import static io.restassured.RestAssured.given;
 
 public class UsuarioProvider {
-    private String idUsuario;
     String gerarEmail = gerarEmailUnico();
 
     @org.jetbrains.annotations.NotNull
@@ -52,11 +51,5 @@ public class UsuarioProvider {
                 .body(usuario)
            .when()
                 .post("/usuarios");
-    }
-    public String setIdUsuario(String idUsuario){
-        return this.idUsuario = idUsuario;
-    }
-    public String getIdUsuario(){
-        return idUsuario;
     }
 }

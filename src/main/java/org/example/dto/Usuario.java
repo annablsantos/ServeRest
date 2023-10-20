@@ -5,6 +5,7 @@ public class Usuario {
     private String email;
     private String password;
     private String administrador;
+    private String idUsuario;
 
     public Usuario(String nome, String email, String password, String administrador) {
         this.nome = nome;
@@ -20,5 +21,11 @@ public class Usuario {
     }
     public String getSenha() {
         return password;
+    }
+    public String setIdUsuario(String idUsuario){
+        return this.idUsuario = idUsuario;
+    }
+    public String getIdUsuario(){
+        return idUsuario;
     }
 }
